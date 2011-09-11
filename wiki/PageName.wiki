@@ -1,4 +1,4 @@
-#summary top
+#summary Introduction
 
 = Introduction =
 
@@ -6,15 +6,18 @@ scroll picker view, date scroll picker view, time scroll picker view for android
 these images are ...
 
  * !ScrollPickerView
-
+  [http://amalog.sakura.ne.jp/scroll_images/scroll_03.png]
 
  * !DateScrollPickerView
+  [http://amalog.sakura.ne.jp/scroll_images/scroll_02.png]
 
 
  * !TimeScrollPickerView
+  [http://amalog.sakura.ne.jp/scroll_images/scroll_01.png]
 
 
  * customize !ScrollPickerView
+  [http://amalog.sakura.ne.jp/scroll_images/scroll_06.png]
 
 
 = Details =
