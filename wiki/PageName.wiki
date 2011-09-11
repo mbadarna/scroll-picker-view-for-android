@@ -1,0 +1,74 @@
+#summary top
+
+= Introduction =
+
+scroll picker view, date scroll picker view, time scroll picker view for android.
+these images are ...
+
+ * !ScrollPickerView
+
+
+ * !DateScrollPickerView
+
+
+ * !TimeScrollPickerView
+
+
+ * customize !ScrollPickerView
+
+
+= Details =
+
+usage.
+
+ * !ScrollPickerView
+{{{
+ScrollPickerView scrollPickerView = new ScrollPickerView(context);
+scrollPickerView.addSlot(getResources().getStringArray(R.array.custom_list), 1, ScrollPickerView.ScrollType.Ranged);
+scrollPickerView.setSlotIndex(0, 13);
+ViewGroup.LayoutParams params = new ViewGroup.LayoutParams(LayoutParams.FILL_PARENT, 200);
+
+setContentView(scrollPickerView, params);
+}}}
+
+ * !DateScrollPickerView
+{{{
+DateScrollPickerView datePickerView = new DateScrollPickerView(context);
+datePickerView.setCurrentTime(false);
+    	
+ViewGroup.LayoutParams params = new ViewGroup.LayoutParams(LayoutParams.FILL_PARENT, 300);
+    	
+setContentView(datePickerView, params);
+}}}
+
+ * !TimeScrollPickerView
+{{{
+TimeScrollPickerView timePickerView = new TimeScrollPickerView(context);
+timePickerView.setCurrentTime(false);
+    	
+ViewGroup.LayoutParams params = new ViewGroup.LayoutParams(LayoutParams.FILL_PARENT, 300);
+    	
+setContentView(timePickerView, params);
+}}}
+
+
+see samples on source.
+
+= load map =
+
+ * create download archive 
+  create download archive and jar file.
+
+ * !ScrollPickerViewListener
+  support !ScrollPickerViewListener
+
+ * change design
+  text-shadow
+  change alpha layer for image
+  fix text label width
+
+ * support to change labels
+  suport to change labels on SlotView
+
+ * support to change show count
+  support to change show label count on !SlotView
