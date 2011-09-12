@@ -2,8 +2,6 @@ package com.ttshrk.view;
 
 import java.util.ArrayList;
 
-import com.ttshrk.view.scrollPicker.R;
-
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.Config;
@@ -63,7 +61,7 @@ public class ScrollPickerView extends LinearLayout {
 	 */
 	private void init(Context context) {
 		bitmap = BitmapFactory.decodeResource(context.getResources(),
-				R.drawable.sw_alpha, options);
+				com.ttshrk.view.R.drawable.com_ttshrk_view_scroll_picker_background, options);
 		this.srcRect.set(0, 0, bitmap.getWidth(), bitmap.getHeight());
 
 		this.setBackgroundColor(0xffffffff);		
