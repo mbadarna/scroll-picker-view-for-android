@@ -51,10 +51,10 @@ abstract class AbstractSlotView extends View implements GestureDetector.OnGestur
     	
     	// create label paint
     	textPaint.setAntiAlias(true);
-    	textPaint.setColor(0xff1f1f1f);
+    	textPaint.setColor(0xff0f0f0f);
     	textPaint.setTextAlign(Paint.Align.RIGHT);
 		textPaint.setAlpha(0xff);
-		textPaint.setShadowLayer(2, 1, 1, 0xffafafaf);
+		textPaint.setShadowLayer(15, 0, 0, 0xffffffff);
 	}
 
 	/**
@@ -130,6 +130,7 @@ abstract class AbstractSlotView extends View implements GestureDetector.OnGestur
 		textPaint.setTextSize(measuredFontSize);
 
 		fontOffset = (int)((- textPaint.ascent()) * 0.35f);	// フォントのたての中心オフセット
+		
 		// center
 		centerOffset = (int)(h * 0.5f);	// インジケータレベル
 	}
