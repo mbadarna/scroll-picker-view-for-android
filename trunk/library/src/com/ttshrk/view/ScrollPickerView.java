@@ -30,9 +30,12 @@ public class ScrollPickerView extends LinearLayout {
 		Ranged, Loop, None,
 	}
 
+	private Rect barSrcRect = new Rect();
+	private Rect barDstRect = new Rect();
 	private Rect srcRect = new Rect();
 	private Rect dstRect = new Rect();
-	private Bitmap bitmap;
+	private Bitmap backImage;
+	private Bitmap barImage;
 	private Rect[] slotRects = new Rect[0];
 	private Rect[] decorationRects = new Rect[0];
 
@@ -60,9 +63,12 @@ public class ScrollPickerView extends LinearLayout {
 	 * @param context
 	 */
 	private void init(Context context) {
-		bitmap = BitmapFactory.decodeResource(context.getResources(),
+		barImage = BitmapFactory.decodeResource(context.getResources(),
+				com.ttshrk.view.R.drawable.com_ttshrk_view_scroll_picker_bar, options);
+		this.barSrcRect.set(0, 0, barImage.getWidth(), barImage.getHeight());
+		backImage = BitmapFactory.decodeResource(context.getResources(),
 				com.ttshrk.view.R.drawable.com_ttshrk_view_scroll_picker_background, options);
-		this.srcRect.set(0, 0, bitmap.getWidth(), bitmap.getHeight());
+		this.srcRect.set(0, 0, backImage.getWidth(), backImage.getHeight());
 
 		this.setBackgroundColor(0xffffffff);		
 	}
@@ -159,6 +165,10 @@ public class ScrollPickerView extends LinearLayout {
 	public void onSizeChanged(int w, int h, int oldw, int oldh) {
 		super.onSizeChanged(w, h, oldw, oldh);
 		Log.d("Datetimepicker#onSizeChanged", "w:" + w + ", h:" + h);
+		int destWidth = (int)((float)w / srcRect.width() * barSrcRect.width());
+		int destHeight = (int)((float)h / srcRect.height() * barSrcRect.height());
+		this.barDstRect.set(- destWidth / 2, -destHeight / 2, destWidth / 2, destHeight / 2);
+		this.barDstRect.offset(w / 2, h / 2);
 		this.dstRect.set(0, 0, w, h);
 	}
 
@@ -172,6 +182,7 @@ public class ScrollPickerView extends LinearLayout {
 		for (int i = 0; i < decorationRects.length; ++i) {
 			canvas.drawRect(decorationRects[i], slotPaints[1]);
 		}
+		canvas.drawBitmap(barImage, barSrcRect, barDstRect, null);
 
 		int count = getChildCount();
 		final long drawingTime = getDrawingTime();
@@ -179,7 +190,7 @@ public class ScrollPickerView extends LinearLayout {
 			drawChild(canvas, getChildAt(i), drawingTime);
 		}
 
-		canvas.drawBitmap(bitmap, srcRect, dstRect, null);
+		canvas.drawBitmap(backImage, srcRect, dstRect, null);
 	}
 
 	/**
