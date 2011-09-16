@@ -9,10 +9,12 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
+import android.widget.Toast;
 
+import com.ttshrk.view.ScrollPickerViewListener;
 import com.ttshrk.view.TimeScrollPickerView;
 
-public class CustomizeSampleActivity extends Activity {
+public class CustomizeSampleActivity extends Activity implements ScrollPickerViewListener {
 	Handler handler = new Handler();
 	CustomTimeScrollPickerView customView;
 	Runnable timeUpdater = new Runnable() {
@@ -29,12 +31,18 @@ public class CustomizeSampleActivity extends Activity {
         super.onCreate(savedInstanceState);
         customView = new CustomTimeScrollPickerView(this);
         customView.setCurrentTime(true);
+        customView.setScrollPickerViewListener(this);
 		
     	ViewGroup.LayoutParams params = new ViewGroup.LayoutParams(LayoutParams.FILL_PARENT, 300);
 		
 		setContentView(customView, params);
 		handler.postDelayed(timeUpdater, 500);
     }
+
+	@Override
+	public void onSingleTapUp(int slotId) {
+		Toast.makeText(this, "onSingleTapUp by slot["+slotId+"]. "+customView.getHour()+":"+customView.getMinute()+":"+customView.getSecond(), Toast.LENGTH_SHORT).show();
+	}
 }
 
 class CustomTimeScrollPickerView extends TimeScrollPickerView {

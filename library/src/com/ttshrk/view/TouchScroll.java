@@ -1,8 +1,11 @@
 package com.ttshrk.view;
 
 
-import android.util.Log;
-
+/**
+ * 
+ * @author ttshrk
+ *
+ */
 class TouchScroll {
 	public static final float FLAME = 30;
 	public static final float DELAY = 1000 / FLAME;
@@ -216,7 +219,6 @@ class TouchScroll {
 	 * @return
 	 */
 	public boolean update() {
-		Log.i("update", toString());
 		// fling
 		if(isFling) {
 			if(Math.abs(flingVelocity) < MIN_FLING_SPEED) {

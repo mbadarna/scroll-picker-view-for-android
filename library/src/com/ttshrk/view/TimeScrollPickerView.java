@@ -6,6 +6,11 @@ import java.util.Date;
 import android.content.Context;
 import android.util.AttributeSet;
 
+/**
+ * 
+ * @author ttshrk
+ *
+ */
 public class TimeScrollPickerView extends ScrollPickerView {
 	private static final SimpleDateFormat sdf = new SimpleDateFormat("HH/mm");
 	protected int hourIndex;

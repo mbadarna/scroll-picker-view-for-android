@@ -6,6 +6,11 @@ import java.util.Date;
 import android.content.Context;
 import android.util.AttributeSet;
 
+/**
+ * 
+ * @author ttshrk
+ *
+ */
 public class DateScrollPickerView extends ScrollPickerView {
 
 	private static final SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");

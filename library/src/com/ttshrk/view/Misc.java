@@ -1,6 +1,11 @@
 package com.ttshrk.view;
 
 
+/**
+ * 
+ * @author ttshrk
+ *
+ */
 class Misc {
 	private Misc() {
 	}

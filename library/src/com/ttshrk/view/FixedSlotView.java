@@ -5,6 +5,11 @@ import android.graphics.Canvas;
 import android.graphics.Rect;
 import android.view.MotionEvent;
 
+/**
+ * 
+ * @author ttshrk
+ *
+ */
 class FixedSlotView extends AbstractSlotView {
 	
 	public FixedSlotView(Context context) {
