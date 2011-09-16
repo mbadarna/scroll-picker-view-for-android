@@ -9,7 +9,13 @@ import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
 
+/**
+ * 
+ * @author ttshrk
+ *
+ */
 abstract class AbstractSlotView extends View implements GestureDetector.OnGestureListener/*, GestureDetector.OnDoubleTapListener*/ {
+	private static final String TAG = "AbstractSlotView";
 	protected static final int SHOW_LABEL_COUNT = 5;
 	protected static final int SHOW_LABEL_PRE_IDX = -3;
 	protected static final int SHOW_LABEL_LAST_IDX = 3;
@@ -121,18 +127,18 @@ abstract class AbstractSlotView extends View implements GestureDetector.OnGestur
 	protected void onSizeChanged(int w, int h, int oldw, int oldh) {
 		super.onSizeChanged(w, h, oldw, oldh);
 		
-		Log.d("SlotView#onSizeChanged", "w:"+w+",h:"+h);
+		Log.v(TAG, "onSizeChanged w:"+w+",h:"+h);
 		// label
 		labelHeight = (int)(h / SHOW_LABEL_COUNT);
-		labelRight = (int)(w * 0.925f);	// ラベルを右寄せにするときの右マージン
+		labelRight = (int)(w * 0.925f);	// right position
 		// font
 		int measuredFontSize = measureFontSizeByLabels(labelHeight, w);
 		textPaint.setTextSize(measuredFontSize);
 
-		fontOffset = (int)((- textPaint.ascent()) * 0.35f);	// フォントのたての中心オフセット
+		fontOffset = (int)((- textPaint.ascent()) * 0.35f);	// font center offset
 		
 		// center
-		centerOffset = (int)(h * 0.5f);	// インジケータレベル
+		centerOffset = (int)(h * 0.5f);	// indicator
 	}
 	
 	/**
@@ -182,7 +188,7 @@ abstract class AbstractSlotView extends View implements GestureDetector.OnGestur
 		}
 		if(event.getAction() == MotionEvent.ACTION_UP) {
 			scroller.onUp();
-			//Log.d("ACTION_UP", scroller.toString());
+			Log.v(TAG, "ACTION_UP " + scroller.toString());
 			if(scroller.isScrollable()) {
 				handler.post(scrollHandler);
 			}
@@ -194,7 +200,7 @@ abstract class AbstractSlotView extends View implements GestureDetector.OnGestur
 	public boolean onDown(MotionEvent e) {
 		handler.removeCallbacks(scrollHandler);
 		scroller.onDown();
-		//Log.d("onDown", scroller.toString());
+		Log.v(TAG, "onDown " + scroller.toString());
 		return false;
 	}
 
@@ -202,7 +208,7 @@ abstract class AbstractSlotView extends View implements GestureDetector.OnGestur
 	public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX,
 			float velocityY) {
 		scroller.fling(velocityY);
-		//Log.i("onFling", scroller.toString());
+		Log.v(TAG, "onFling " + scroller.toString());
 		return false;
 	}
 
@@ -215,7 +221,6 @@ abstract class AbstractSlotView extends View implements GestureDetector.OnGestur
 	public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX,
 			float distanceY) {
 		scroller.scroll(distanceY);
-		//Log.d("onScroll", scroller.toString());
 		invalidate();
 		return false;
 	}
@@ -223,13 +228,11 @@ abstract class AbstractSlotView extends View implements GestureDetector.OnGestur
 	@Override
 	public void onShowPress(MotionEvent e) {
 		// nothing todo
-		//Log.d("onShowPress", scroller.toString());
 	}
 
 	@Override
 	public boolean onSingleTapUp(MotionEvent e) {
-		// nothing todo
-		//Log.d("onSingleTapUp", scroller.toString());
+		((ScrollPickerView)getParent()).sendOnSingleTapUp(this);
 		return false;
 	}
 

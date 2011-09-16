@@ -3,6 +3,11 @@ package com.ttshrk.view;
 import android.content.Context;
 import android.graphics.Canvas;
 
+/**
+ * 
+ * @author ttshrk
+ *
+ */
 class RangedSlotView extends AbstractSlotView {
 	
 	public RangedSlotView(Context context) {

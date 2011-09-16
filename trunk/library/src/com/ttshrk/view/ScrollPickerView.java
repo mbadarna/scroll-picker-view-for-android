@@ -14,7 +14,13 @@ import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
 
+/**
+ * 
+ * @author ttshrk
+ *
+ */
 public class ScrollPickerView extends LinearLayout {
+	private static final String TAG = "ScrollPickerView";
 	private static final int lineWidth = 4;
 	private static final int decorationWidth = 4;
 	private static final BitmapFactory.Options options = new BitmapFactory.Options();
@@ -30,6 +36,7 @@ public class ScrollPickerView extends LinearLayout {
 		Ranged, Loop, None,
 	}
 
+	ScrollPickerViewListener scrollPickerViewListener;
 	private Rect barSrcRect = new Rect();
 	private Rect barDstRect = new Rect();
 	private Rect srcRect = new Rect();
@@ -156,6 +163,42 @@ public class ScrollPickerView extends LinearLayout {
 	
 	/**
 	 * 
+	 * @param scrollPickerViewListener
+	 */
+	public void setScrollPickerViewListener(ScrollPickerViewListener scrollPickerViewListener) {
+		this.scrollPickerViewListener = scrollPickerViewListener;
+	}
+	
+	/**
+	 * 
+	 * @param slotView
+	 */
+	void sendOnSingleTapUp(AbstractSlotView slotView) {
+		if(scrollPickerViewListener == null)
+			return;
+		int slotId = findSlotIdBySlotView(slotView);
+		if(slotId != -1)
+			scrollPickerViewListener.onSingleTapUp(slotId);
+	}
+	
+	/**
+	 * 
+	 * @param slotView
+	 * @return
+	 */
+	private int findSlotIdBySlotView(AbstractSlotView slotView) {
+		int count = getChildCount();
+		for (int i = 0; i < count; ++i) {
+			AbstractSlotView sv = (AbstractSlotView)getChildAt(i);
+			if(sv == slotView) {
+				return i;
+			}
+		}
+		return -1;
+	}
+	
+	/**
+	 * 
 	 * @param w
 	 * @param h
 	 * @param oldw
@@ -164,7 +207,7 @@ public class ScrollPickerView extends LinearLayout {
 	@Override
 	public void onSizeChanged(int w, int h, int oldw, int oldh) {
 		super.onSizeChanged(w, h, oldw, oldh);
-		Log.d("Datetimepicker#onSizeChanged", "w:" + w + ", h:" + h);
+		Log.v(TAG, "onSizeChanged " + "w:" + w + ", h:" + h);
 		int destWidth = (int)((float)w / srcRect.width() * barSrcRect.width());
 		int destHeight = (int)((float)h / srcRect.height() * barSrcRect.height());
 		this.barDstRect.set(- destWidth / 2, -destHeight / 2, destWidth / 2, destHeight / 2);
@@ -203,7 +246,7 @@ public class ScrollPickerView extends LinearLayout {
 	 */
 	@Override
 	protected void onLayout(boolean changed, int l, int t, int r, int b) {
-		Log.i("Datetimepicker#onLayout", "ch:" + changed + ", l:" + l + ", t:"
+		Log.v(TAG, "onLayout" + "ch:" + changed + ", l:" + l + ", t:"
 				+ t + ", r:" + r + ", b:" + b);
 		if (changed) {
 			layoutHorizontal(r - l, b - t);
@@ -218,7 +261,7 @@ public class ScrollPickerView extends LinearLayout {
 	 * @see #setOrientation(int)
 	 * @see #onLayout(boolean, int, int, int, int)
 	 */
-	void layoutHorizontal(int w, int h) {
+	protected void layoutHorizontal(int w, int h) {
 		int count = getChildCount();
 		Rect container = new Rect();
 		container.top = measureByAspect(h);
@@ -244,8 +287,6 @@ public class ScrollPickerView extends LinearLayout {
 			int childHeight = container.height();
 
 			child.layout(childLeft, childTop, childLeft + childWidth, childTop + childHeight);
-			// Log.i("onLayout",
-			// "l:"+childLeft+", t:"+childTop+", r:"+(childLeft+childWidth)+", b:"+(childTop+childHeight));
 			slotRects[i] = new Rect(childLeft, 0, childLeft + childWidth, h);
 			childLeft += (childWidth + lineWidth);
 		}

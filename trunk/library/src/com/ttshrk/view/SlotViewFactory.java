@@ -2,6 +2,11 @@ package com.ttshrk.view;
 
 import android.content.Context;
 
+/**
+ * 
+ * @author ttshrk
+ *
+ */
 class SlotViewFactory {
 	public static AbstractSlotView create(Context context, ScrollPickerView.ScrollType scrollType) {
 		switch(scrollType) {
