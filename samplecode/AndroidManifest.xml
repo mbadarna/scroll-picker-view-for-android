@@ -19,6 +19,4 @@
 		<activity android:name=".FullScreenSampleActivity" android:label="full screen sample"></activity>
 		<activity android:name=".CustomizeSampleActivity" android:label="customize sample"></activity>
     </application>
-    
-    
 </manifest>
